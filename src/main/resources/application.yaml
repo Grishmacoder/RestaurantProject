@@ -1,0 +1,15 @@
+spring:
+  flyway:
+    enabled: false
+  application:
+    name: restaurant
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: mypassword
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect

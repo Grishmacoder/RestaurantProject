@@ -1,0 +1,2 @@
+user - postgres
+pwd - Grish@123
