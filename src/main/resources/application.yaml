@@ -4,7 +4,7 @@ spring:
   application:
     name: restaurant
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/mydatabase
     username: postgres
     password: mypassword
   jpa:
