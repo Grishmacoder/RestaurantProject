@@ -1,65 +1,45 @@
 
 
-import { useState } from 'react'
 import Header from './components/Header'
-import Menu from './components/Menu'
-import Signup from './components/Signup'
+import Menu from './pages/Menu'
+import Signup from './pages/Signup'
+import Order from './pages/Order'
 import './App.css'
+import { Routes, Route, Link } from 'react-router-dom'
+import ContactUs from './pages/ContactUs'
+import About from './pages/About'
+import { CartProvider } from './context/CartContext'
 
 function App() {
-  const [showSignup, setShowSignup] = useState(false)
-
-  const handleShowSignup = () => {
-    setShowSignup(true)
-  }
-
-  const handleBackToHome = () => {
-    setShowSignup(false)
-  }
-
-  if (showSignup) {
-    return (
-      <div>
-        <button 
-          onClick={handleBackToHome} 
-          style={{
-            position: 'fixed',
-            top: '20px',
-            left: '20px',
-            zIndex: 1001,
-            background: '#e74c3c',
-            color: 'white',
-            border: 'none',
-            padding: '0.5rem 1rem',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          ← Back to Home
-        </button>
-        <Signup />
-      </div>
-    )
-  }
-
   return (
-    <>
-      <Header onShowSignup={handleShowSignup} />
+    <CartProvider>
+      <Header />
       <main style={{ marginTop: '80px' }}>
-        <section id="home" className="hero">
-          <div className="hero-content">
-            <h1>Welcome to Delicious Bites</h1>
-            <p>Experience the finest dining with our carefully crafted menu</p>
-            <button className="cta-button">View Menu</button>
-          </div>
-        </section>
-        <Menu />
+        <Routes>
+          <Route path="/" element={
+            <section id="home" className="hero">
+              <div className="hero-content">
+                <h1>Welcome to Delicious Bites</h1>
+                <p>Experience the finest dining with our carefully crafted menu</p>
+                <Link to="/menu" style={{ textDecoration: 'none' }} className="cta-button">View Menu</Link>
+              </div>
+            </section>
+          } />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/order" element={<Order />} />
+        </Routes>
       </main>
-    </>
+    </CartProvider>
   )
 }
 
 export default App
+
+
+
 
 
 

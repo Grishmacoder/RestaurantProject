@@ -1,6 +1,6 @@
 import './Header.css'
-
-function Header({ onShowSignup }) {
+import { Link } from 'react-router-dom'
+function Header() {
   return (
     <header className="header">
       <div className="container">
@@ -9,12 +9,13 @@ function Header({ onShowSignup }) {
         </div>
         <nav className="nav">
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/menu">Menu</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/order">Cart</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
             <li>
-              <button onClick={onShowSignup} className="signup-btn">Sign Up</button>
+              <Link to="/signup" className="signup-btn">Sign Up</Link>
             </li>
           </ul>
         </nav>
@@ -24,4 +25,5 @@ function Header({ onShowSignup }) {
 }
 
 export default Header
+
 
