@@ -1,6 +1,6 @@
 import './Header.css'
 
-function Header() {
+function Header({ onShowSignup }) {
   return (
     <header className="header">
       <div className="container">
@@ -13,6 +13,9 @@ function Header() {
             <li><a href="#menu">Menu</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li>
+              <button onClick={onShowSignup} className="signup-btn">Sign Up</button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -21,3 +24,4 @@ function Header() {
 }
 
 export default Header
+
