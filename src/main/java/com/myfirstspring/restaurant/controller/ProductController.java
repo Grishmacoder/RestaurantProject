@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/products")
+@RequestMapping("/menu")
 public class ProductController {
 
     private final ProductRepository productRepository;
@@ -49,7 +49,7 @@ public class ProductController {
         return ResponseEntity.ok(productMapper.toDto(product));
     }
 
-    @PostMapping("/add-product")
+    @PostMapping()
     public ResponseEntity<ProductDto>  createProduct(
             @RequestBody  ProductDto request,
             UriComponentsBuilder uriBuilder

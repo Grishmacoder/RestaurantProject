@@ -8,9 +8,11 @@ import com.myfirstspring.restaurant.entities.User;
 import com.myfirstspring.restaurant.mapper.UserMapper;
 import com.myfirstspring.restaurant.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +26,8 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<UserDto> getUsers(
@@ -40,12 +43,14 @@ public class UserController {
                 .toList();
     }
 
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<UserDto> addUser(
             @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder
     ) {
+
         var user = userMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         userRepository.save(user);
 
@@ -96,7 +101,7 @@ public class UserController {
         if(user == null){
             return ResponseEntity.notFound().build();
         }
-        if(!user.getPassword().equals(request.getOldPassword())){
+        if(!passwordEncoder.matches(request.getOldPassword(),user.getPassword())){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         user.setPassword(request.getNewPassword());
